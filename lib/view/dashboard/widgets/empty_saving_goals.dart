@@ -37,6 +37,12 @@ class _EmptySavingsGoalsWidget extends StatelessWidget {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Text(
+                    "No Goals Found",
+                    style: context.textTheme.headlineSmall,
+                    textAlign: TextAlign.center,
+                  ),
+                  const Divider(),
+                  Text(
                     StringConstants.emptySavingsGoals,
                     style: context.textTheme.labelLarge,
                     textAlign: TextAlign.center,

@@ -106,7 +106,7 @@ class _AddSavingsGoalsState extends State<AddSavingsGoals> with ValidationsMixin
       goalAmount: int.parse(goalAmountController.text).toDouble(),
       targetDate: goalTargetDateController.text,
       startDateDate: goalStartDateController.text,
-      goalFrequency: SavingsGoalFrequency.montly,
+      goalFrequency: frquencyNotifier.value,
       goalPriority: SavingsGoalPriority.high,
       amountSaved: 0,
     );
