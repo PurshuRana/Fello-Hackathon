@@ -28,6 +28,8 @@ class _AddSavingsGoalsState extends State<AddSavingsGoals> with ValidationsMixin
 
   final _formKey = GlobalKey<FormState>();
 
+  ValueNotifier<SavingsGoalFrequency> frquencyNotifier = ValueNotifier<SavingsGoalFrequency>(SavingsGoalFrequency.montly);
+
   @override
   void dispose() {
     amountSavedController.dispose();
@@ -35,6 +37,7 @@ class _AddSavingsGoalsState extends State<AddSavingsGoals> with ValidationsMixin
     goalTargetDateController.dispose();
     goalAmountController.dispose();
     goalNameController.dispose();
+    frquencyNotifier.dispose();
     super.dispose();
   }
 
@@ -60,6 +63,31 @@ class _AddSavingsGoalsState extends State<AddSavingsGoals> with ValidationsMixin
               const SizedBox(width: 0, height: 16),
               FelloTextFieldWidget(controller: goalStartDateController, validator: validateGoalStartDate, label: StringConstants.goalStartDateLabel, hint: "DD-MM-YYYY"),
               const SizedBox(width: 0, height: 16),
+              const Text("Set Your Goal Frequency"),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                mainAxisSize: MainAxisSize.max,
+                children: [
+                  for (var frequency in SavingsGoalFrequency.values)
+                    ValueListenableBuilder<SavingsGoalFrequency>(
+                      valueListenable: frquencyNotifier,
+                      builder: (context,__,_) {
+                        return ChoiceChip(
+                          label: Text(
+                            frequency.label,
+                          ),
+                          color: MaterialStatePropertyAll(frquencyNotifier.value == frequency ? Colors.teal : Colors.transparent),
+                          selected: frquencyNotifier.value == frequency,
+                          onSelected: (value) {
+                            frquencyNotifier.value = frequency;
+                          },
+                        );
+                      }
+                    )
+                ],
+              ),
+              const SizedBox(width: 0, height: 16),
               FelloButton(
                 label: "Create Goal",
                 onPressed: createGoal,
@@ -83,6 +111,6 @@ class _AddSavingsGoalsState extends State<AddSavingsGoals> with ValidationsMixin
       amountSaved: 0,
     );
     context.read<SavingGoalsCubit>().addGioal(goal);
-    Navigator.pop(context,true);
+    Navigator.pop(context, true);
   }
 }

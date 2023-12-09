@@ -8,7 +8,7 @@ sealed class SavingGoalsState extends Equatable {
   SavingGoalsState? fromJson(Map<String, dynamic> json) {
     if (json['state'] == HasSavingGoals.stringState) {
       List<Map<String, dynamic>> goalsJsonData = json['goals'];
-      print("State--->${goalsJsonData}");
+      // print("State--->${goalsJsonData}");
       return HasSavingGoals(savingGoals: List.generate(goalsJsonData.length, (index) => SavingGoal.fromJson(goalsJsonData.elementAt(index))));
     } else {
       return NoSavingGoals();
