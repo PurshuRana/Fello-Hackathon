@@ -50,49 +50,51 @@ class _AddSavingsGoalsState extends State<AddSavingsGoals> with ValidationsMixin
       body: ScreenPadding(
         child: Form(
           key: _formKey,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            mainAxisAlignment: MainAxisAlignment.center,
-            mainAxisSize: MainAxisSize.max,
-            children: [
-              FelloTextFieldWidget(controller: goalNameController, validator: validateGoalName, label: StringConstants.goalNameLabel, hint: "Car, Bike, .."),
-              const SizedBox(width: 0, height: 16),
-              FelloTextFieldWidget(controller: goalAmountController, validator: validateGoalAmount, label: StringConstants.goalAmountLabel, hint: "10,0000"),
-              const SizedBox(width: 0, height: 16),
-              FelloTextFieldWidget(controller: goalTargetDateController, validator: validateGoalDate, label: StringConstants.goaltargetDateLabel, hint: "DD-MM-YYYY"),
-              const SizedBox(width: 0, height: 16),
-              FelloTextFieldWidget(controller: goalStartDateController, validator: validateGoalStartDate, label: StringConstants.goalStartDateLabel, hint: "DD-MM-YYYY"),
-              const SizedBox(width: 0, height: 16),
-              const Text("Set Your Goal Frequency"),
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                mainAxisSize: MainAxisSize.max,
-                children: [
-                  for (var frequency in SavingsGoalFrequency.values)
-                    ValueListenableBuilder<SavingsGoalFrequency>(
-                      valueListenable: frquencyNotifier,
-                      builder: (context,__,_) {
-                        return ChoiceChip(
-                          label: Text(
-                            frequency.label,
-                          ),
-                          color: MaterialStatePropertyAll(frquencyNotifier.value == frequency ? Colors.teal : Colors.transparent),
-                          selected: frquencyNotifier.value == frequency,
-                          onSelected: (value) {
-                            frquencyNotifier.value = frequency;
-                          },
-                        );
-                      }
-                    )
-                ],
-              ),
-              const SizedBox(width: 0, height: 16),
-              FelloButton(
-                label: "Create Goal",
-                onPressed: createGoal,
-              )
-            ],
+          child: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisSize: MainAxisSize.max,
+              children: [
+                FelloTextFieldWidget(controller: goalNameController, validator: validateGoalName, label: StringConstants.goalNameLabel, hint: "Car, Bike, .."),
+                const SizedBox(width: 0, height: 16),
+                FelloTextFieldWidget(controller: goalAmountController, validator: validateGoalAmount, label: StringConstants.goalAmountLabel, hint: "10,0000"),
+                const SizedBox(width: 0, height: 16),
+                FelloTextFieldWidget(controller: goalTargetDateController, validator: validateGoalDate, label: StringConstants.goaltargetDateLabel, hint: "DD-MM-YYYY"),
+                const SizedBox(width: 0, height: 16),
+                FelloTextFieldWidget(controller: goalStartDateController, validator: validateGoalStartDate, label: StringConstants.goalStartDateLabel, hint: "DD-MM-YYYY"),
+                const SizedBox(width: 0, height: 16),
+                const Text("Set Your Goal Frequency"),
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  mainAxisSize: MainAxisSize.max,
+                  children: [
+                    for (var frequency in SavingsGoalFrequency.values)
+                      ValueListenableBuilder<SavingsGoalFrequency>(
+                        valueListenable: frquencyNotifier,
+                        builder: (context,__,_) {
+                          return ChoiceChip(
+                            label: Text(
+                              frequency.label,
+                            ),
+                            color: MaterialStatePropertyAll(frquencyNotifier.value == frequency ? Colors.teal : Colors.transparent),
+                            selected: frquencyNotifier.value == frequency,
+                            onSelected: (value) {
+                              frquencyNotifier.value = frequency;
+                            },
+                          );
+                        }
+                      )
+                  ],
+                ),
+                const SizedBox(width: 0, height: 16),
+                FelloButton(
+                  label: "Create Goal",
+                  onPressed: createGoal,
+                )
+              ],
+            ),
           ),
         ),
       ),

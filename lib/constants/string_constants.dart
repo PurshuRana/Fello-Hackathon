@@ -8,7 +8,7 @@ final class StringConstants {
   static const errorMsg = "Oops! Something went wrong. Please try again later or contact support for assistance.";
   static const goalNameLabel = "Name this Goal";
   static const goalAmountLabel = "What's your Savings Goal Target Amount";
-  static const goaltargetDateLabel = "When is Finish this Goal";
+  static const goaltargetDateLabel = "When do you Finish this Goal";
   static const goalStartDateLabel = "When will you Start this Goal";
   static const successGoalCreation = "Goal created! Your journey to financial success starts now. Happy saving!🚀. #SavingsAdventure";
 }
