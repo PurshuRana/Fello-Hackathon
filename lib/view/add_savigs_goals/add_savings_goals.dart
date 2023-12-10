@@ -10,6 +10,7 @@ import 'package:fello_hackathan/view/widgets/buttons.dart';
 import 'package:fello_hackathan/view/widgets/padding_widget.dart';
 import 'package:fello_hackathan/view/widgets/text_field_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class AddSavingsGoals extends StatefulWidget {
@@ -56,13 +57,37 @@ class _AddSavingsGoalsState extends State<AddSavingsGoals> with ValidationsMixin
               mainAxisAlignment: MainAxisAlignment.center,
               mainAxisSize: MainAxisSize.max,
               children: [
-                FelloTextFieldWidget(controller: goalNameController, validator: validateGoalName, label: StringConstants.goalNameLabel, hint: "Car, Bike, .."),
+                FelloTextFieldWidget(
+                  controller: goalNameController,
+                  validator: validateGoalName,
+                  label: StringConstants.goalNameLabel,
+                  hint: "Car, Bike, ..",
+                ),
                 const SizedBox(width: 0, height: 16),
-                FelloTextFieldWidget(controller: goalAmountController, validator: validateGoalAmount, label: StringConstants.goalAmountLabel, hint: "10,0000"),
+                FelloTextFieldWidget(
+                  controller: goalAmountController,
+                  validator: validateGoalAmount,
+                  label: StringConstants.goalAmountLabel,
+                  hint: "10,0000",
+                  textInputType: TextInputType.number,
+                  inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                ),
                 const SizedBox(width: 0, height: 16),
-                FelloTextFieldWidget(controller: goalTargetDateController, validator: validateGoalDate, label: StringConstants.goaltargetDateLabel, hint: "DD-MM-YYYY"),
+                FelloTextFieldWidget(
+                  controller: goalTargetDateController,
+                  validator: validateGoalDate,
+                  label: StringConstants.goaltargetDateLabel,
+                  hint: "DD-MM-YYYY",
+                  textInputType: TextInputType.datetime,
+                ),
                 const SizedBox(width: 0, height: 16),
-                FelloTextFieldWidget(controller: goalStartDateController, validator: validateGoalStartDate, label: StringConstants.goalStartDateLabel, hint: "DD-MM-YYYY"),
+                FelloTextFieldWidget(
+                  controller: goalStartDateController,
+                  validator: validateGoalStartDate,
+                  label: StringConstants.goalStartDateLabel,
+                  hint: "DD-MM-YYYY",
+                  textInputType: TextInputType.datetime,
+                ),
                 const SizedBox(width: 0, height: 16),
                 const Text("Set Your Goal Frequency"),
                 Row(
@@ -72,20 +97,19 @@ class _AddSavingsGoalsState extends State<AddSavingsGoals> with ValidationsMixin
                   children: [
                     for (var frequency in SavingsGoalFrequency.values)
                       ValueListenableBuilder<SavingsGoalFrequency>(
-                        valueListenable: frquencyNotifier,
-                        builder: (context,__,_) {
-                          return ChoiceChip(
-                            label: Text(
-                              frequency.label,
-                            ),
-                            color: MaterialStatePropertyAll(frquencyNotifier.value == frequency ? Colors.teal : Colors.transparent),
-                            selected: frquencyNotifier.value == frequency,
-                            onSelected: (value) {
-                              frquencyNotifier.value = frequency;
-                            },
-                          );
-                        }
-                      )
+                          valueListenable: frquencyNotifier,
+                          builder: (context, __, _) {
+                            return ChoiceChip(
+                              label: Text(
+                                frequency.label,
+                              ),
+                              color: MaterialStatePropertyAll(frquencyNotifier.value == frequency ? Colors.teal : Colors.transparent),
+                              selected: frquencyNotifier.value == frequency,
+                              onSelected: (value) {
+                                frquencyNotifier.value = frequency;
+                              },
+                            );
+                          })
                   ],
                 ),
                 const SizedBox(width: 0, height: 16),
@@ -112,7 +136,7 @@ class _AddSavingsGoalsState extends State<AddSavingsGoals> with ValidationsMixin
       goalPriority: SavingsGoalPriority.high,
       amountSaved: 0,
     );
-    context.read<SavingGoalsCubit>().addGioal(goal);
+    context.read<SavingGoalsCubit>().addGoal(goal);
     Navigator.pop(context, true);
   }
 }

@@ -21,14 +21,14 @@ class _SavingGoalItemWidget extends StatelessWidget {
           children: [
             Text(
               savingGoal.goalName,
-              style: context.textTheme.headlineMedium,
+              style: context.textTheme.headlineSmall,
             ),
             const Divider(
               height: UIConstants.screenPadding,
             ),
             Text(
-              "₹${savingGoal.amountSaved}/${savingGoal.goalAmount}",
-              style: context.textTheme.headlineLarge,
+              "₹${savingGoal.amountSaved} out of ₹${savingGoal.goalAmount}",
+              style: context.textTheme.headlineLarge?.copyWith(fontSize: 18,color: Colors.amber),
             ),
             const SizedBox(width: 0, height: 16),
             Row(
