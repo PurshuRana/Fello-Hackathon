@@ -5,14 +5,6 @@ part of 'saving_goals_cubit.dart';
 
 sealed class SavingGoalsState extends Equatable {
   Map<String, dynamic>? toJson();
-  SavingGoalsState? fromJson(Map<String, dynamic> json) {
-    if (json['state'] == HasSavingGoals.stringState) {
-      List<dynamic> goalsJsonData = json['goals'];
-      return HasSavingGoals(savingGoals: List.generate(goalsJsonData.length, (index) => SavingGoal.fromJson(goalsJsonData.elementAt(index))));
-    } else {
-      return NoSavingGoals();
-    }
-  }
 }
 
 final class NoSavingGoals extends SavingGoalsState {

@@ -22,7 +22,14 @@ class SavingGoalsCubit extends HydratedCubit<SavingGoalsState> {
 
   @override
   SavingGoalsState? fromJson(Map<String, dynamic> json) {
-    return state.fromJson(json);
+    
+     if (json['state'] == HasSavingGoals.stringState) {
+      final goalsJsonData = json['goals'];
+      return HasSavingGoals(savingGoals: List.generate(goalsJsonData.length, (index) => SavingGoal.fromJson(goalsJsonData.elementAt(index))));
+    } else {
+      return NoSavingGoals();
+    }
+    // return HasSavingGoals(savingGoals: [SavingGoal(goalName: "Audi", goalAmount: 989888, targetDate: "01-01-2024", startDateDate: "01-01-2026", goalFrequency: SavingsGoalFrequency.montly, goalPriority: SavingsGoalPriority.low, amountSaved: 2545)]);
   }
 
   @override
